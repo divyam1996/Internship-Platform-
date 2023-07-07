@@ -1,7 +1,7 @@
 import axios from "axios"
 import { USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_UPDATE_PROFILE_REQUEST, USER_UPDATE_PROFILE_SUCCESS } from "./constants"
 
-export const login = (email, password) => async (dispatch) => {
+export const login = (email, password, role) => async (dispatch) => {
     try {
         dispatch({
             type: USER_LOGIN_REQUEST
@@ -12,14 +12,14 @@ export const login = (email, password) => async (dispatch) => {
                 'Content-Type': 'application/json',
             },
         }
-        const role = "Mentor"
+        // const role = "Mentor"
         let data = [];
-        const obj = {
-            "email": email,
-            "password": password,
-            "role": role
-        }
-        await axios.post('http://10.246.136.13:6312/user/auth/login', obj, config).then((res) => {
+        // const obj = {
+        //     "email": email,
+        //     "password": password,
+        //     "role": role
+        // }
+        await axios.post('http://10.53.109.182:6969/user/auth/login', { email, password, role }).then((res) => {
             console.log(res);
             data = res.data;
         })

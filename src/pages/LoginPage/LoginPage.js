@@ -13,6 +13,7 @@ import Container from '@material-ui/core/Container';
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useLocation, useHistory } from 'react-router-dom'
 import { login } from '../../actions';
+import { InputLabel, Select } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -39,15 +40,16 @@ export const LoginPage = () => {
     const history = useHistory()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [role, setRole] = useState('')
 
     const dispatch = useDispatch()
     const userLogin = useSelector(state => state.userLogin)
-    console.log(email);
+    console.log(email, role);
     const { loading, error, userInfo } = userLogin
     const classes = useStyles();
     const submitHandler = (e) => {
         e.preventDefault()
-        dispatch(login(email, password))
+        dispatch(login(email, password, role))
     }
 
     return (
@@ -87,6 +89,23 @@ export const LoginPage = () => {
                         autoComplete="current-password"
                         onChange={(e) => setPassword(e.target.value)}
                     />
+
+                    <InputLabel htmlFor="outlined-age-native-simple">Age</InputLabel>
+                    <Select
+                        native
+                        style={{ width: '400px' }}
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                        label="Select Role"
+                        inputProps={{
+                            name: 'Role',
+                            id: 'outlined-age-native-simple',
+                        }}
+                    >
+                        <option aria-label="None" value="" />
+                        <option value={'Mentor'}>Mentor</option>
+                        <option value={'Candidate'}>Candidate</option>
+                    </Select>
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
                         label="Remember me"
