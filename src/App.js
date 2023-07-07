@@ -1,21 +1,25 @@
 import { LoginPage } from "./pages/LoginPage/LoginPage";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from '@material-ui/core';
 import theme from "./theme";
 import RegistrationPage from "./pages/RegistrationPage";
 import { Mentor } from "./pages/Mentor/Mentor";
+import { Candidates } from "./pages/Mentor/Candidates/Candidates";
 
 function App() {
   return (
     // <ThemeProvider theme={theme}>
     <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={LoginPage} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/register" component={RegistrationPage} />
-        <Route path="/mentor" component={Mentor} />
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegistrationPage />} />
+        <Route exact path="/mentor" element={<Mentor />} />
+        {/* <Route exact path="/mentor/dashboard" component={Dashboard} /> */}
+        <Route path="/mentor/candidates" element={<Candidates />} />
+        {/* <Route path="/mentor/candidates" component={Candidates} /> */}
         {/* <Route path="*" element={<NoPage />} /> */}
-      </Switch>
+      </Routes>
     </BrowserRouter >
     // </ThemeProvider>
   );

@@ -12,6 +12,11 @@ export const Header = () => {
             flexGrow: 1,
         },
     }));
+    // const history = useHistory();
+    const handleClick = (name) => {
+        console.log('inside');
+        // history.push(`/mentor/${name}`)
+    }
     return (
         <AppBar position="static">
             <Toolbar color="grey" style={{ justifyContent: 'space-between' }}>
@@ -22,8 +27,8 @@ export const Header = () => {
                     <Typography variant="h6" className={classes.title}>INSTEP</Typography>
                 </div>
                 <div style={{ justifyContent: 'flex-end' }}>
-                    <Link to="/mentor/dashboard">Dashboard</Link>
-                    <Button color="inherit">Candidates</Button>
+                    <Button color="inherit"><Link to="/mentor" style={{ color: "white", textDecoration: " none" }}>Dashboard</Link></Button>
+                    <Button color="inherit"><Link to="/mentor/candidates" style={{ color: "white", textDecoration: " none" }}>Candidates</ Link> </Button>
                     <Button color="inherit">Projects</Button>
                 </div>
             </Toolbar>

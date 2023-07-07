@@ -16,15 +16,15 @@ export const candidateData = [
     },
     {
         field: 'Email',
-        headerName: 'Created By',
-        width: '110',
+        headerName: 'Email',
+        width: '200',
         hideInTable: false,
         isDisabled: false,
     },
     {
         field: 'Skills',
-        headerName: 'Created Date',
-        width: '140',
+        headerName: 'Skills',
+        width: '200',
         hideInTable: false,
         isDisabled: false,
         type: 'date'

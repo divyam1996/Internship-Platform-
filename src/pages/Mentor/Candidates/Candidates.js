@@ -4,6 +4,7 @@ import {
     candidateSearchState,
 } from '../data';
 import DataGridComponent from '../../../components/DataGridComponent';
+import { Header } from '../Header';
 
 const addTitle = 'Add New Record';
 const editTitle = 'Edit Record';
@@ -44,6 +45,7 @@ export const Candidates = () => {
 
     return (
         <>
+            <Header />
             <DataGridComponent
                 headerData={candidateData}
                 apiEndpoint={apiEndpoints.read}

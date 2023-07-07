@@ -145,8 +145,8 @@ const DataGridComponent = ({ headerData, apiEndpoint, editRecord, addRecord,
                     disableSelectionOnClick
                     loading={loading}
                     disableColumnMenu
-                    headerHeight={32}
-                    rowHeight={27}
+                    headerHeight={50}
+                    rowHeight={40}
                     getRowClassName={(params) => params.row[rowDetails.columnName] === Number(rowDetails.rowNumber) ? 'highLight' : ''}
                 />
             </TableWrapper>

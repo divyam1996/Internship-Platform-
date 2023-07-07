@@ -19,21 +19,23 @@ export const login = (email, password, role) => async (dispatch) => {
         //     "password": password,
         //     "role": role
         // }
+        console.log(email, password, role);
         await axios.post('http://10.53.109.182:6969/user/auth/login', { email, password, role }).then((res) => {
             console.log(res);
             data = res.data;
+            dispatch({
+                type: USER_LOGIN_SUCCESS,
+                payload: data
+            });
+            localStorage.setItem('userInfo', JSON.stringify(data))
+
         })
             .catch(() => {
                 console.log('error');
             })
 
-        dispatch({
-            type: USER_LOGIN_SUCCESS,
-            payload: data
-        })
 
 
-        localStorage.setItem('userInfo', JSON.stringify(data))
     } catch (error) {
         dispatch({
             type: USER_LOGIN_FAIL,

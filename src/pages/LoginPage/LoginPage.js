@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useLocation, useHistory } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { login } from '../../actions';
 import { InputLabel, Select } from '@material-ui/core';
 
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const LoginPage = () => {
     const location = useLocation()
-    const history = useHistory()
+    // const history = useHistory()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [role, setRole] = useState('')
