@@ -15,12 +15,12 @@ export const Header = () => {
             flexGrow: 1,
         },
     }));
-    const dispatch = useDispatch();
     // const history = useHistory();
     const handleClick = (name) => {
         console.log('inside');
         // history.push(`/mentor/${name}`)
     }
+    const dispatch = useDispatch();
     const handleSignOut = () => {
         dispatch(logout());
         navigate("/");
@@ -35,9 +35,8 @@ export const Header = () => {
                     <Typography variant="div" className={classes.title} style={{ textAlign: "center", fontFamily: "Arial", fontWeight: "700" }}>INSTEP</Typography>
                 </div>
                 <div style={{ justifyContent: 'flex-end' }}>
-                    <Button color="inherit"><Link to="/mentor" style={{ color: "white", textDecoration: " none" }}>Dashboard</Link></Button>
-                    <Button color="inherit"><Link to="/mentor/candidates" style={{ color: "white", textDecoration: " none" }}>Candidates</ Link> </Button>
-                    <Button color="inherit"><Link to="/mentor/projects" style={{ color: "white", textDecoration: " none" }}>Projects</ Link> </Button>
+                    <Button color="inherit"><Link to="/candidate" style={{ color: "white", textDecoration: " none" }}>Dashboard</Link></Button>
+                    <Button color="inherit"><Link to="/candidate/applications" style={{ color: "white", textDecoration: " none" }}>Applications</Link></Button>
                     <Button color="inherit" onClick={handleSignOut}>SignOut</Button>
                 </div>
             </Toolbar>

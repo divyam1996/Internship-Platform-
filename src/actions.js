@@ -1,7 +1,7 @@
 import axios from "axios"
 import { USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_UPDATE_PROFILE_REQUEST, USER_UPDATE_PROFILE_SUCCESS } from "./constants"
 
-export const login = (email, password, role) => async (dispatch) => {
+export const login = (email, password) => async (dispatch) => {
     try {
         dispatch({
             type: USER_LOGIN_REQUEST
@@ -19,8 +19,10 @@ export const login = (email, password, role) => async (dispatch) => {
         //     "password": password,
         //     "role": role
         // }
-        console.log(email, password, role);
-        await axios.post('http://10.53.109.182:6969/user/auth/login', { email, password, role }).then((res) => {
+        const role = "Mentor";
+        console.log(email, password);
+        console.log(process.env.REACT_APP_API_URL);
+        await axios.post(`${process.env.REACT_APP_API_URL}/user/auth/login`, { email, password, role }).then((res) => {
             console.log(res);
             data = res.data;
             dispatch({
@@ -45,22 +47,22 @@ export const login = (email, password, role) => async (dispatch) => {
 }
 
 export const logout = () => (dispatch) => {
-    localStorage.removeItem('userInfo')
+    localStorage.setItem('userInfo', JSON.stringify({ user: {}, tokens: {} }))
     dispatch({ type: USER_LOGOUT })
 }
 
-export const register = (name, email, password) => async (dispatch) => {
+export const register = (data) => async (dispatch) => {
     try {
         dispatch({
             type: USER_REGISTER_REQUEST
         })
 
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        }
-        const { data } = await axios.post('/api/users', { name, email, password }, config)
+        // const config = {
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        // }
+        // const { data } = await axios.post('/api/users', { name, email, password }, config)
 
         dispatch({
             type: USER_REGISTER_SUCCESS,

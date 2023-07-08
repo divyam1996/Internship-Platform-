@@ -25,7 +25,7 @@ export const useStyles = makeStyles(() => ({
         display: 'flex',
         alignItems: 'center',
         height: '30',
-        backgroundColor: '#498245',
+        backgroundColor: '#8626C3',
         color: 'white',
         fontSize: '12px'
     }
@@ -42,11 +42,11 @@ export const TableWrapper = styled.div`
 .MuiTablePagination-caption {
     font-size: 11px;
     font-weight: 500;
-    color: #498245;
+    color: #8626C3;
 }
 .MuiTablePagination-actions {
     margin-left: 5px;
-    color: #498245;
+    color: #8626C3;
 }
 .MuiDataGrid-root {
     overflow-y:hidden;
@@ -81,11 +81,11 @@ export const TableWrapper = styled.div`
 }
 
 .MuiDataGrid-root .MuiDataGrid-columnHeaderWrapper {
-    background-color: #498245;
+    background-color: #8626C3;
 }
 
 .MuiDataGrid-root .MuiDataGrid-columnHeaderWrapper .MuiDataGrid-cell {
-    background-color: #498245;
+    background-color: #8626C3;
 }
 
 .MuiDataGrid-root .MuiDataGrid-columnHeaderTitleContainer {
@@ -93,7 +93,7 @@ export const TableWrapper = styled.div`
 }
 
 .MuiDataGrid-columnsContainer {
-    background-color: #498245;
+    background-color: #8626C3;
 }
 
 .highLight {

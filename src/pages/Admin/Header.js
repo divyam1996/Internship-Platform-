@@ -35,9 +35,9 @@ export const Header = () => {
                     <Typography variant="div" className={classes.title} style={{ textAlign: "center", fontFamily: "Arial", fontWeight: "700" }}>INSTEP</Typography>
                 </div>
                 <div style={{ justifyContent: 'flex-end' }}>
-                    <Button color="inherit"><Link to="/mentor" style={{ color: "white", textDecoration: " none" }}>Dashboard</Link></Button>
-                    <Button color="inherit"><Link to="/mentor/candidates" style={{ color: "white", textDecoration: " none" }}>Candidates</ Link> </Button>
-                    <Button color="inherit"><Link to="/mentor/projects" style={{ color: "white", textDecoration: " none" }}>Projects</ Link> </Button>
+                    <Button color="inherit"><Link to="/admin" style={{ color: "white", textDecoration: " none" }}>Dashboard</Link></Button>
+                    {/* <Button color="inherit"><Link to="/mentor/candidates" style={{ color: "white", textDecoration: " none" }}>Candidates</ Link> </Button> */}
+                    <Button color="inherit"><Link to="/admin/mentors" style={{ color: "white", textDecoration: " none" }}>Mentors</ Link> </Button>
                     <Button color="inherit" onClick={handleSignOut}>SignOut</Button>
                 </div>
             </Toolbar>

@@ -2,6 +2,8 @@ import { Button, Card, CardActions, CardContent, Typography } from '@material-ui
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import ProjectForm from './ProjectForm';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles({
     root: {
@@ -20,23 +22,39 @@ const useStyles = makeStyles({
     },
 });
 export const Dashboard = () => {
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
+    const user_id = userInfo?.user?.unique_id;
     const classes = useStyles();
     const [data, setData] = useState([]);
+    const [rowData, setRowData] = useState({})
     const bull = <span className={classes.bullet}>•</span>;
     useEffect(() => {
-        axios.get('http://10.53.109.182:6969/user/operations/mentors/allprojects').then((res) => {
+        axios.get(`${process.env.REACT_APP_API_URL}/user/operations/candidates/myProjectListing/${user_id}`).then((res) => {
             setData(res.data)
         })
             .catch(() => {
 
             })
     }, [])
+    const [showModal, setShowModal] = useState(false);
+
+    const handleEditRecord = (result) => {
+        console.log(result);
+        setRowData({ ...result });
+        setShowModal(true);
+
+    };
+    const handleModalClose = () => {
+        setShowModal(false);
+    };
+
     console.log(data);
     return (
         <>
             <br />
             <br />
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0 10px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0 10px' }}>
                 {
                     data.map(result => {
                         return (<div>
@@ -56,7 +74,7 @@ export const Dashboard = () => {
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Button size="small">Learn More</Button>
+                                    <Button size="small" onClick={() => handleEditRecord(result)}>Apply</Button>
                                 </CardActions>
                             </Card>
                         </div>)
@@ -105,6 +123,14 @@ export const Dashboard = () => {
                     </CardActions>
                 </Card> */}
             </div>
+            {showModal
+                && (
+                    <ProjectForm
+                        isOpen={showModal}
+                        onClose={handleModalClose}
+                        rowData={rowData}
+                    />
+                )}
         </>
     );
 };

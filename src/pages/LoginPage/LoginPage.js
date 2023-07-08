@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { login } from '../../actions';
 import { InputLabel, Select } from '@material-ui/core';
 
@@ -43,14 +43,25 @@ export const LoginPage = () => {
     const [role, setRole] = useState('')
 
     const dispatch = useDispatch()
-    const userLogin = useSelector(state => state.userLogin)
     console.log(email, role);
-    const { loading, error, userInfo } = userLogin
     const classes = useStyles();
     const submitHandler = (e) => {
         e.preventDefault()
         dispatch(login(email, password, role))
     }
+    const navigate = useNavigate()
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
+    const resRole = userInfo?.user?.role;
+    console.log(resRole);
+    console.log(userLogin);
+
+    useEffect(() => {
+        resRole === "Candidate" && navigate("/candidate");
+        resRole === "Mentor" && navigate("/mentor");
+        resRole === "Admin" && navigate("/admin");
+
+    }, [resRole]);
 
     return (
         <Container component="main" maxWidth="xs">
@@ -89,27 +100,10 @@ export const LoginPage = () => {
                         autoComplete="current-password"
                         onChange={(e) => setPassword(e.target.value)}
                     />
-
-                    <InputLabel htmlFor="outlined-age-native-simple">Age</InputLabel>
-                    <Select
-                        native
-                        style={{ width: '400px' }}
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}
-                        label="Select Role"
-                        inputProps={{
-                            name: 'Role',
-                            id: 'outlined-age-native-simple',
-                        }}
-                    >
-                        <option aria-label="None" value="" />
-                        <option value={'Mentor'}>Mentor</option>
-                        <option value={'Candidate'}>Candidate</option>
-                    </Select>
-                    <FormControlLabel
+                    {/* <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
                         label="Remember me"
-                    />
+                    /> */}
                     <Button
                         type="submit"
                         fullWidth

@@ -1,36 +1,26 @@
 import React, { useState } from 'react';
 import {
-    candidateData, candidateInitialState,
-    candidateSearchState, dummyDataCandidates
+    dummyDataProjects,
+    projectsData, projectsInitialState,
+    projectsSearchState,
 } from '../data';
 import DataGridComponent from '../../../components/DataGridComponent';
 import { Header } from '../Header';
+import ProForm from './ProForm';
 
-const addTitle = 'Add New Record';
-const editTitle = 'Edit Record';
-
-export const Candidates = () => {
-    const apiEndpoints = { read: `${process.env.REACT_APP_API_URL}/user/operations/mentors/allCandidates` };
+export const Projects = () => {
+    const apiEndpoints = { read: `${process.env.REACT_APP_API_URL}/user/operations/mentors/allprojects` };
     const [showModal, setShowModal] = useState(false);
-    const [editRowData, setEditRowData] = useState(candidateInitialState);
-    const [modalTitle, setModalTitle] = useState(addTitle);
     const [refreshDatagrid, setRefreshDatagrid] = useState(false);
     const [rowDetails, setRowDetails] = useState({
-        columnName: 'RoleId',
+        columnName: 'project_id',
         rowNumber: ''
     });
     const handleEditRecord = (obj) => {
-        const rowData = obj.row;
-        setModalTitle(editTitle);
-        setShowModal(true);
-        setEditRowData((prev) => ({
-            ...prev,
-            ...rowData
-        }));
+        // setShowModal(true);
     };
+    const [rowData, setRowData] = useState({})
     const handleAddRecord = () => {
-        setEditRowData(candidateInitialState);
-        setModalTitle(addTitle);
         setShowModal(true);
     };
 
@@ -42,31 +32,29 @@ export const Candidates = () => {
         setRefreshDatagrid(prev => !prev);
         setRowDetails(prev => ({ ...prev, rowNumber: newId }));
     };
-
     return (
         <>
             <Header />
             <DataGridComponent
-                headerData={candidateData}
+                headerData={projectsData}
                 apiEndpoint={apiEndpoints.read}
                 editRecord={handleEditRecord}
                 addRecord={handleAddRecord}
-                initialData={candidateSearchState}
+                initialData={projectsSearchState}
                 rowDetails={rowDetails}
                 refreshDatagrid={refreshDatagrid}
-                dummyData={dummyDataCandidates}
+                dummyData={dummyDataProjects}
             />
 
-            {/* {showModal
+            {showModal
                 && (
-                    <RolesForm
+                    <ProForm
                         isOpen={showModal}
                         onClose={handleModalClose}
-                        title={modalTitle}
-                        rowData={editRowData}
+                        rowData={rowData}
                         onRecordSubmit={handleRecordSubmit}
                     />
-                )} */}
+                )}
         </>
     );
 };

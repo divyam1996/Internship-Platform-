@@ -6,10 +6,11 @@ import { Tooltip } from '@material-ui/core';
 import _ from 'lodash';
 import { TableWrapper, useStyles } from './DataGridComponent.styled';
 import DataGridToolbar from './Toolbar/DataGridToolbar';
-import { dummyData } from '../pages/Mentor/data';
+import Popup from './Toolbar/Popup';
+// import { dummyData } from '../pages/Mentor/data';
 
 const DataGridComponent = ({ headerData, apiEndpoint, editRecord, addRecord,
-    initialData, rowDetails, refreshDatagrid, dataParser }) => {
+    initialData, rowDetails, refreshDatagrid, dataParser, dummyData }) => {
     const classes = useStyles();
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
@@ -21,47 +22,47 @@ const DataGridComponent = ({ headerData, apiEndpoint, editRecord, addRecord,
     const searchBar = document.getElementsByClassName('targetSearchBar')[0];
 
     useEffect(() => {
-        // (async () => {
-        //     try {
-        setLoading(true);
-        console.log('inside Datagrid')
-        // const res = await axios.get(apiEndpoint);
-        const sortedData = dummyData
-            .sort((a, b) => a[sortParam].toString().localeCompare(b[sortParam].toString(), undefined, {
-                numeric: true,
-                sensitivity: 'base'
-            }));
-        const formattedData = [...sortedData];
-        let parsedData = [];
-        if (dataParser) {
-            parsedData = [...dataParser(formattedData)];
-        } else {
-            parsedData = [...formattedData];
-        }
-        setData(parsedData);
-        let temp = [...parsedData];
-        if (!_.isEqual(searchData, initialData)) {
-            for (const [key, value] of Object.entries(searchData)) {
-                temp = [...temp?.filter(obj => obj[key]?.toString().toLowerCase().includes(value.toLowerCase()))];
+        (async () => {
+            try {
+                setLoading(true);
+                console.log('inside Datagrid')
+                const res = await axios.get(apiEndpoint);
+                const sortedData = res.data
+                    .sort((a, b) => a[sortParam].toString().localeCompare(b[sortParam].toString(), undefined, {
+                        numeric: true,
+                        sensitivity: 'base'
+                    }));
+                const formattedData = [...sortedData];
+                let parsedData = [];
+                if (dataParser) {
+                    parsedData = [...dataParser(formattedData)];
+                } else {
+                    parsedData = [...formattedData];
+                }
+                setData(parsedData);
+                let temp = [...parsedData];
+                if (!_.isEqual(searchData, initialData)) {
+                    for (const [key, value] of Object.entries(searchData)) {
+                        temp = [...temp?.filter(obj => obj[key]?.toString().toLowerCase().includes(value.toLowerCase()))];
+                    }
+                }
+                setSearchResult(temp);
+                setLoading(false);
+            } catch (err) {
+                setLoading(false);
+
             }
-        }
-        setSearchResult(temp);
-        setLoading(false);
-        // } catch (err) {
-        //     setLoading(false);
-
-        // }
-
+        })();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [apiEndpoint, refreshDatagrid]);
 
-    useEffect(() => {
-        if (dataGridWindow) {
-            dataGridWindow.onscroll = () => {
-                searchBar.scrollLeft = dataGridWindow.scrollLeft;
-            };
-        }
-    });
+    // useEffect(() => {
+    //     if (dataGridWindow) {
+    //         dataGridWindow.onscroll = () => {
+    //             searchBar.scrollLeft = dataGridWindow.scrollLeft;
+    //         };
+    //     }
+    // });
 
     const handleRowDoubleClick = (dataRow) => {
         dataRow.id && editRecord(dataRow);
@@ -104,9 +105,16 @@ const DataGridComponent = ({ headerData, apiEndpoint, editRecord, addRecord,
                 numeric: true,
                 sensitivity: 'base'
             }),
-            renderCell: (params) => (<Tooltip title={params.value?.toString() ?? ''}>
-                <span className="table-cell-trucate">{params.value?.toString()}</span>
-            </Tooltip>
+            renderCell: (params) => (
+                key.dataType !== 'image'
+                    ? (
+                        <Tooltip title={params.value?.toString() ?? ''}>
+                            <span className="table-cell-trucate">{params.value?.toString()}</span>
+                        </Tooltip>
+                    )
+                    : (
+                        <Popup email={params.value} />
+                    )
             ),
         }));
         return columnsData;
