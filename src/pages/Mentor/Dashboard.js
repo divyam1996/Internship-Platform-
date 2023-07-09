@@ -24,7 +24,7 @@ export const Dashboard = () => {
     const [data, setData] = useState([]);
     const bull = <span className={classes.bullet}>•</span>;
     useEffect(() => {
-        axios.get('http://10.53.109.182:6969/user/operations/mentors/allprojects').then((res) => {
+        axios.get(`${process.env.REACT_APP_API_URL}/user/operations/mentors/allprojects`).then((res) => {
             setData(res.data)
         })
             .catch(() => {
@@ -55,9 +55,9 @@ export const Dashboard = () => {
                                         Location: {result.location}
                                     </Typography>
                                 </CardContent>
-                                <CardActions>
+                                {/* <CardActions>
                                     <Button size="small">Learn More</Button>
-                                </CardActions>
+                                </CardActions> */}
                             </Card>
                         </div>)
                     })

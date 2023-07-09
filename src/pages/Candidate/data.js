@@ -3,7 +3,7 @@ export const applicationData = [
     {
         field: 'application_id',
         headerName: 'Application ID',
-        width: '200',
+        width: '350',
         hideInTable: false,
         isDisabled: false,
         sortable: true,

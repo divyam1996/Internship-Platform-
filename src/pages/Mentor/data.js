@@ -25,7 +25,7 @@ export const candidateData = [
     {
         field: 'skills',
         headerName: 'Skills',
-        width: '200',
+        width: '300',
         hideInTable: false,
         isDisabled: false,
         type: 'date'
@@ -33,11 +33,26 @@ export const candidateData = [
     {
         field: 'university_name',
         headerName: 'University Name',
-        width: '200',
+        width: '160',
         hideInTable: false,
         isDisabled: false,
         type: 'date'
-    }
+    },
+    {
+        field: 'project_title',
+        headerName: 'Project Title',
+        width: '200',
+        hideInTable: false,
+        isDisabled: false,
+    },
+    {
+        field: 'project_id',
+        headerName: 'Project Id',
+        width: '250',
+        hideInTable: false,
+        isDisabled: false,
+    },
+
 ]
 
 export const candidateInitialState = {
